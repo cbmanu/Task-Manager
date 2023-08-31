@@ -13,7 +13,7 @@
     "@mailerlite/mailerlite-nodejs": "^1.1.0",
     "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
-    "express-handlebars": "^7.0.7",
+    "express-handlebars": "^7.1.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.2.2",
     "morgan": "^1.10.0",
