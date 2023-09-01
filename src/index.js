@@ -2,9 +2,9 @@ const app=require('./app')
 const database=require('./db/database')
 
 
-const port=process.env.PORT
+const PORT=process.env.PORT||3000
 database().then(() => {
-    app.listen(port, () => {
+    app.listen(PORT, () => {
         console.log("listening for requests");
     })
 })
