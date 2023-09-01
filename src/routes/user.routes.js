@@ -25,7 +25,12 @@ router.post("/user/add",async(req,res)=>{
     try{     
         await user.save()
         const token =await user.generateAuthToken()
-        res.status(201).send({user,token})  
+        res.status(201).send({user,token})
+        User.init().
+        then(() => User.create(user)).
+        catch(error => {
+          throw new Error()
+        });      
     }catch(e){
         res.status(400).send(e)
     }
