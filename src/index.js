@@ -1,12 +1,8 @@
 const app=require('./app')
-const database=require('./db/database')
 
-
-const PORT=process.env.PORT||3080
-database().then(() => {
+const PORT=process.env.PORT||3000
     app.listen(PORT, () => {
-        console.log("listening for requests");
+        console.log("Server on port ",PORT);
     })
-})
 
 

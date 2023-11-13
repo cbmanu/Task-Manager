@@ -4,6 +4,7 @@ const User=require("../models/user");
 const auth = require('../middleware/auth');
 const multer=require("multer")
 const sharp =require('sharp')
+const storage = multer.memoryStorage()
 const upload=multer({
     limits:{
         fileSize:1000000,
@@ -13,7 +14,8 @@ const upload=multer({
             return cb(new Error("Please upload an image"))
         }
         cb(undefined,true)
-    }
+    },
+    storage:storage
 })
 
 router.get("/users/me",auth,async (req,res)=>{
@@ -26,11 +28,7 @@ router.post("/user/add",async(req,res)=>{
         await user.save()
         const token =await user.generateAuthToken()
         res.status(201).send({user,token})
-        User.init().
-        then(() => User.create(user)).
-        catch(error => {
-          throw new Error()
-        });      
+
     }catch(e){
         res.status(400).send(e)
     }
@@ -80,7 +78,6 @@ router.patch("/user/me",auth,async(req,res)=>{
     }
 
     try{
-
         updates.forEach((update)=>req.user[update]=req.body[update])
         await req.user.save()
         res.send(req.user)
@@ -100,7 +97,6 @@ router.delete("/user/me",auth,async(req,res)=>{
         res.status(500).send(e)
     }
 })
-
 
 router.post('/users/me/avatar',auth,upload.single('avatar'),async(req,res)=>{
     const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()

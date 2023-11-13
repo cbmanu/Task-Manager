@@ -3,6 +3,10 @@ const morgan=require('morgan')
 const exphbs=require('express-handlebars')
 const app=express();
 const path=require('path');
+const favicon = require('serve-favicon');
+const publicDirectory = path.join(__dirname,'../public')
+const database=require('./db/database')
+database()
 
 app.use(express.json())
 
@@ -14,8 +18,8 @@ var hbs=exphbs.create({
 })
 app.engine(".hbs",hbs.engine);
 app.set('view engine','.hbs');
-
-
+app.use(express.static(publicDirectory))
+app.use(favicon(path.join(publicDirectory+'/favicon.ico')));
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 
