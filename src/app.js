@@ -3,6 +3,7 @@ const morgan=require('morgan')
 const exphbs=require('express-handlebars')
 const app=express();
 const path=require('path');
+const cookieParser = require('cookie-parser')
 const favicon = require('serve-favicon');
 const publicDirectory = path.join(__dirname,'../public')
 const database=require('./db/database')
@@ -19,7 +20,9 @@ var hbs=exphbs.create({
 app.engine(".hbs",hbs.engine);
 app.set('view engine','.hbs');
 app.use(express.static(publicDirectory))
-app.use(favicon(path.join(publicDirectory+'/favicon.ico')));
+
+app.use(cookieParser())
+app.use(favicon(path.join(publicDirectory+'/imgs/favicon.ico')));
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 
@@ -28,3 +31,6 @@ app.use(require('./routes/task.routes'));
 app.use(require('./routes/user.routes'));
 
 module.exports=app
+
+
+

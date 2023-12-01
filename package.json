@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd -e dev  nodemon -e js,json,hbs src/index.js",
+    "dev": "env-cmd -e dev  nodemon -e js,json,hbs,css src/index.js",
     "test": "env-cmd -e test jest --watch  --runInBand"
+  },
+  "engines": {
+    "node": ">=18.16.0"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@mailerlite/mailerlite-nodejs": "^1.1.0",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "hbs": "^4.2.0",

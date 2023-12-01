@@ -1,13 +1,35 @@
-<form action="/tasks/add" method="POST">
-<div>
-    <label for="title">Write a title</label>
-    <input type="text" name="title" id="title" placeholder="Type a title"/>
-    
-</div>
+<div class="container p-5 vh-100">
+<div class="row">
+        <form action="/tasks/add" method="POST" class="col-md-4 col-12">
+        <h1>Write your tasks</h1>
+            <div>
+                <input type="text" name="title" id="title" class="mb-2" placeholder="Type a title"/>
+            </div>
+            <div>
+                <textarea name="description" id="description" placeholder="Type a description"></textarea>
+            </div>
+            <button type='submit'class="btn btn-secondary p-3">Add</button>
+        </form>
+           <div class="col-md-8 col-12">
+        {{#each tasks}}
+        <div class="tarea p-2 border border-dark rounded-3 mb-5 m-auto">
+        <h3 class="text-center">{{this.title}}</h3>
+        
+        <p>{{this.description}}</p>
+        <div class="d-flex justify-content-around">
+            <form action="/task/{{this.id}}" method="PATCH">
+                <input type="text" name="title" id="title" class="mb-2" placeholder="Type a title"/>
+                <textarea name="description" id="description" placeholder="Type a description"></textarea>
+                <label for="done">Done?</label>
+                <input type="checkbox" name="done" id="done" class="mb-2"/>
+                <a class="btn btn-secondary m-1" href="" role="button" type="submit">Edit</a>
+            </form>
+            <a class="btn btn-secondary m-1" href="#" role="button">Done</a>
+            <a class="btn btn-secondary m-1" href="#" role="button">Delete</a>
+        </div>
+        </div>
+        {{/each}}
+    </div>
 
-<div>
-    <label for="description">Write the description</label>
-    <textarea name="description" id="description" placeholder="Type a description"></textarea>
 </div>
-<button>Add</button>
-</form>
+</div>
