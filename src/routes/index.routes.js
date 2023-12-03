@@ -1,5 +1,6 @@
 const express=require('express')
 const Task=require("../models/task")
+const auth=require("../middleware/auth")
 const router=express.Router();
 
 router.get("/signUp",(req,res)=>{
@@ -8,7 +9,7 @@ router.get("/signUp",(req,res)=>{
 router.get("/login",(req,res)=>{
     res.render("login")
 })
-router.get("/",async(req,res)=>{
+router.get("/",auth,async(req,res)=>{
     const tasks= await Task.find().lean();
     res.render('index',{tasks})
 })

@@ -16,7 +16,7 @@ const auth=async(req,res,next)=>{
         next()
     }catch(e){
         res.clearCookie("token")
-        return res.redirect("/userForm")
+        return res.redirect("/signUp")
     }
 }
 module.exports=auth

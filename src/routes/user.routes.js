@@ -34,7 +34,7 @@ router.post("/user/add",async(req,res)=>{
         return res.redirect("/")
 
     }catch(e){
-        res.status(400).render('signUp')
+        res.status(400).redirect("/signUp")
     }
     
 })
