@@ -34,6 +34,12 @@
         <div>
             <h2 class="d-flex justify-content-center">Do you want to change your picture?</h2>
             <img alt="avatar" class="avatar d-block m-auto">
+            {{#if avatar}}
+            <img alt="avatar" class="avatar d-block m-auto">
+            {{/if}}
+            {{#unless avatar}}
+            <img src="/imgs/user.png" alt="user anonymous" width="250px" height="250px">
+            {{/unless}}
             <label for="file" class="d-flex justify-content-center">Choose file to upload</label>
             <div class="m-auto" style="width: fit-content;">
                 <input type="file" class="form-control d-block m-auto" id="file" name="avatar" />
