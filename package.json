@@ -8,6 +8,9 @@
     "dev": "env-cmd -e dev  nodemon -e js,json,hbs,css src/index.js",
     "test": "env-cmd -e test jest --watch  --runInBand"
   },
+  "engines": {
+    "node": ">=18.16.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
