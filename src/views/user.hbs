@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-end">
+    <nav class="dropdown mb-5">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{#if avatar}}
+            <img class="avatar" alt="avatar" width="64px" height="64px" class="rounded-circle">
+            {{/if}}
+            {{#unless avatar}}
+            <img src="/imgs/user.png" alt="user anonymous" width="32px" height="32px">
+            {{/unless}}
+            Hi <b>{{user}}</b>
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="/">
+                    <img src="/imgs/letter-svgrepo-com.svg" alt="letter svg reminders">
+                    Your tasks
+                </a>
+            </li>
+            <hr class="dropdown-divider">
+            <li>
+                <form action="/user/logout" method="POST">
+                    <button class="dropdown-item" href="#" onclick="logout()">
+                        <img src="/imgs/logout-svgrepo-com.svg" alt="logout svg">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div>
+    <form method="POST" action="/users/me/avatar" enctype="multipart/form-data">
+        <div>
+            <h2 class="d-flex justify-content-center">Do you want to change your picture?</h2>
+            <img alt="avatar" class="avatar d-block m-auto">
+            <label for="file" class="d-flex justify-content-center">Choose file to upload</label>
+            <div class="m-auto" style="width: fit-content;">
+                <input type="file" class="form-control d-block m-auto" id="file" name="avatar" />
+                <button class="btn btn-secondary d-block m-auto mt-2">Submit</button>
+            </div>
+
+        </div>
+    </form>
+</div>

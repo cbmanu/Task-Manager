@@ -6,19 +6,18 @@
             <form action="/user/add" method="POST" class="d-block" id="userForm">
                 <div>
                     <label for="name" class="form-label">Write your name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Type your name" />
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Type your name" required/>
 
                 </div>
 
                 <div>
                     <label for="email" class="form-label">Write your email</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Type your email" />
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Type your email"required />
 
                 </div>
                 <div>
                     <label for="password" class="form-label">Write your password</label>
-                    <input type="password" minlength="7" class="form-control" name="password" id="password"
-                        placeholder="Type your password" />
+                    <input type="password" minlength="7" class="form-control" name="password" id="password" placeholder="Type your password" />
 
                 </div>
                 <div>

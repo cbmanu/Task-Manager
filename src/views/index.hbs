@@ -1,33 +1,71 @@
-<div class="container p-5 vh-100">
+<div class="d-flex justify-content-end">
+    <nav class="dropdown mb-5">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{#if avatar}}
+            <img class="avatar" alt="avatar" width="64px" height="64px">
+            {{/if}}
+            {{#unless avatar}}
+            <img src="/imgs/user.png" alt="user anonymous" width="32px" height="32px">
+            {{/unless}}
+            Hi <b>{{user}}</b>
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="/user">
+                    <img src="/imgs/settings-svgrepo-com.svg" alt="letter svg reminders">
+                    Your profile
+                </a>
+            </li>
+            <hr class="dropdown-divider">
+            <li>
+                <form action="/user/logout" method="POST">
+                    <button class="dropdown-item" href="#" onclick="logout()">
+                        <img src="/imgs/logout-svgrepo-com.svg" alt="logout svg">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</div>
 <div class="row">
-        <form action="/tasks/add" method="POST" class="col-md-4 col-12">
+    <form action="/tasks/add" method="POST" class="col-md-4 col-12">
         <h1>Write your tasks</h1>
-            <div>
-                <input type="text" name="title" id="title" class="mb-2" placeholder="Type a title"/>
-            </div>
-            <div>
-                <textarea name="description" id="description" placeholder="Type a description"></textarea>
-            </div>
-            <button type='submit'class="btn btn-secondary p-3">Add</button>
-        </form>
-           <div class="col-md-8 col-12">
+        <div>
+            <input type="text" name="title" id="title" class="mb-2" placeholder="Type a title" />
+        </div>
+        <div>
+            <textarea name="description" id="description" placeholder="Type a description"></textarea>
+        </div>
+        <button type='submit' class="btn btn-secondary p-3">Add</button>
+    </form>
+    <div class="col-md-8 col-12 mt-5">
         {{#each tasks}}
-        <div class="tarea p-2 border border-dark rounded-3 mb-5 m-auto">
-        <h3 class="text-center">{{this.title}}</h3>
-        
-        <p>{{this.description}}</p>
-        <div class="d-flex justify-content-around">
-            <form action="/task/{{this.id}}" method="PATCH">
-                <input type="text" name="title" id="title" class="mb-2" placeholder="Type a title"/>
-                <textarea name="description" id="description" placeholder="Type a description"></textarea>
-                <label for="done">Done?</label>
-                <input type="checkbox" name="done" id="done" class="mb-2"/>
-                <a class="btn btn-secondary m-1" href="" role="button" type="submit">Edit</a>
-            </form>
-            <a class="btn btn-secondary m-1" href="#" role="button">Done</a>
-            <a class="btn btn-secondary m-1" href="#" role="button">Delete</a>
+        {{#if this.done}}
+        <div class="tarea p-2 border border-dark rounded-3 mb-5 m-auto done">
+            <h3 class="text-center">{{this.title}}</h3>
+
+            <p>{{this.description}}</p>
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-secondary m-1" onclick="editTask('{{this._id}}')" type="submit">Edit</button>
+                <button class="btn btn-secondary m-1" onclick="undoneTask('{{this._id}}')">Undone</button>
+                <button class="btn btn-secondary m-1" onclick="deleteTask('{{this._id}}')">Delete</button>
+            </div>
         </div>
+        {{/if}}
+        {{#unless this.done}}
+        <div class="tarea p-2 border border-dark rounded-3 mb-5 m-auto undone">
+            <h3 class="text-center">{{this.title}}</h3>
+
+            <p>{{this.description}}</p>
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-secondary m-1" onclick="editTask('{{this._id}}')" type="submit">Edit</button>
+                <button class="btn btn-secondary m-1" onclick="doneTask('{{this._id}}')">Done</button>
+                <button class="btn btn-secondary m-1" onclick="deleteTask('{{this._id}}')">Delete</button>
+            </div>
         </div>
+        {{/unless }}
         {{/each}}
     </div>
 

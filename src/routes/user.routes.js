@@ -49,17 +49,17 @@ router.post("/users/login",async(req,res)=>{
         })
         return res.redirect("/")
     }catch(e){
-        res.status(400).send(e)
+        return res.redirect("/login")
     }
 })
 
-router.post("/users/logout",auth, async(req,res)=>{
+router.post("/user/logout",auth, async(req,res)=>{
     try{
         req.user.tokens=req.user.tokens.filter((token)=>{
             return token.token!==req.token
         })
         await req.user.save()
-        res.send()
+        return res.redirect('/signUp')
     }catch(e){
         res.status(500).send(e)
     }
@@ -109,7 +109,7 @@ router.post('/users/me/avatar',auth,upload.single('avatar'),async(req,res)=>{
     const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
     req.user.avatar=buffer
     await req.user.save();
-    res.send()
+    res.redirect('/user')
 },(error,req,res,next)=>{
     res.status(400).send({error:error.message})
 })
@@ -117,7 +117,7 @@ router.post('/users/me/avatar',auth,upload.single('avatar'),async(req,res)=>{
 router.delete('/users/me/avatar',auth,async(req,res)=>{
     req.user.avatar=undefined
     await req.user.save();
-    res.send()
+    res.redirect('/')
 },(error,req,res,next)=>{
     res.status(400).send({error:error.message})
 })

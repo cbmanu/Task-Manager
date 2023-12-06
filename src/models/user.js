@@ -3,6 +3,7 @@ const validator=require('validator');
 const bcrypt=require("bcryptjs")
 const jwt=require('jsonwebtoken')
 const Task=require("./task")
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
  
 const userSchema=new Schema({
     name:{
@@ -65,6 +66,15 @@ userSchema.virtual('tasks',{
     localField:'_id',
     foreignField:'owner'
 })
+userSchema.virtual('getData').get(function() {
+    return {
+        title:this.title,
+        description:this.description,
+        done:this.done
+    };
+  });
+
+userSchema.plugin(mongooseLeanVirtuals);
 userSchema.methods.generateAuthToken=async function(){
     user=this
     const token=jwt.sign({_id:user._id.toString()},process.env.JWT_SECRET,{expiresIn:"1h"})
