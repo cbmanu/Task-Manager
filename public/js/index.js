@@ -45,7 +45,6 @@ function undoneTask(id){
     });
 }
 function deleteTask(id){
-    console.log("Funciono?")
     fetch(`/task/${id}`,  {
       method: 'DELETE'
     }).then(response => response.json())
